@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="nl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mijn gezonde koers</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#2f7d5b"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Gezonde koers">
+<style>
+:root{--bg:#f6f4ee;--card:#fff;--tx:#1f2a24;--mu:#66736b;--ac:#2f7d5b;--ac2:#e3f0e8;--wa:#2f7d5b;--bd:#e3e0d6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a17;--card:#1d2621;--tx:#eaf0ec;--mu:#9aa9a0;--ac:#5fc496;--ac2:#243a2f;--wa:#5fc496;--bd:#2d3a33}}
+:root[data-theme="dark"]{--bg:#141a17;--card:#1d2621;--tx:#eaf0ec;--mu:#9aa9a0;--ac:#5fc496;--ac2:#243a2f;--wa:#5fc496;--bd:#2d3a33}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:520px;margin:0 auto;padding:16px 14px 130px}
+h1{font-size:22px;margin:4px 0 2px}h2{font-size:16px;margin:0 0 10px}
+.sub{color:var(--mu);margin:0 0 14px;font-size:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.big{font-size:34px;font-weight:700;min-width:50px;text-align:center}
+button,select,input{font:inherit;color:var(--tx)}
+.btn{border:1px solid var(--bd);background:var(--card);border-radius:12px;padding:10px 14px;cursor:pointer}
+.btn.pri{background:var(--ac);color:#fff;border-color:var(--ac)}
+.rnd{width:48px;height:48px;border-radius:50%;font-size:26px;padding:0;border:1px solid var(--bd);background:var(--ac2);cursor:pointer}
+input,select{width:100%;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg)}
+label{display:block;font-size:13px;color:var(--mu);margin:8px 0 4px}
+.seg{display:flex;gap:6px}.seg button{flex:1;padding:10px 4px;border:1px solid var(--bd);background:var(--bg);border-radius:10px;cursor:pointer;font-size:14px}
+.seg button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.seg button.on.w{background:var(--wa);border-color:var(--wa)}
+.mini{gap:6px}.mini button{flex:none;padding:4px 11px;font-size:13px;border-radius:16px;color:var(--mu)}.mini button.on{background:var(--ac2);color:var(--tx);border-color:var(--ac)}
+.mini button.on.neu{background:var(--bd);border-color:var(--mu);color:var(--tx)}
+.mini button.on.pos{background:#d4ecdc;border-color:#2f7d5b;color:#14502f}
+.mini button.on.neg{background:#fbe3cf;border-color:#d98a4e;color:#7a4118}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mini button.on.pos{background:#1f4a35;border-color:#5fc496;color:#bfeed6}:root:not([data-theme="light"]) .mini button.on.neg{background:#4a3322;border-color:#d99a63;color:#f4d3b4}}
+:root[data-theme="dark"] .mini button.on.pos{background:#1f4a35;border-color:#5fc496;color:#bfeed6}:root[data-theme="dark"] .mini button.on.neg{background:#4a3322;border-color:#d99a63;color:#f4d3b4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button.on:not(.neu):not(.pos):not(.neg){background:var(--ac2);color:var(--tx);border-color:var(--ac)}}
+:root[data-theme="dark"] .seg button.on:not(.neu):not(.pos):not(.neg){background:var(--ac2);color:var(--tx);border-color:var(--ac)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.pri{background:#2f6e54;border-color:#2f6e54}}
+:root[data-theme="dark"] .btn.pri{background:#2f6e54;border-color:#2f6e54}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--ac2);border-radius:12px;padding:10px}.stat b{display:block;font-size:22px}.stat span{font-size:12px;color:var(--mu)}
+.msg{background:var(--ac2);border-left:4px solid var(--ac);border-radius:10px;padding:10px 12px;margin-bottom:12px}
+.msg.w{border-color:var(--wa)}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--bd);display:flex;padding-bottom:max(env(safe-area-inset-bottom,0px),24px);z-index:5}
+nav button{flex:1;border:0;background:none;padding:12px 4px;font-size:14px;color:var(--mu);cursor:pointer}
+nav button.on{color:var(--ac);font-weight:700}
+.badge{display:inline-block;padding:6px 10px;margin:3px;border-radius:20px;background:var(--bg);border:1px solid var(--bd);font-size:13px;color:var(--mu)}
+.badge.got{background:var(--ac2);color:var(--tx);border-color:var(--ac)}
+svg{width:100%;height:auto;display:block}
+small{color:var(--mu)}
+#gl{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px}#gl .card{width:100%;max-width:380px;margin:0}
+</style></head>
+<body><main id="app"></main>
+<nav><button data-t="v">Vandaag</button><button data-t="a">Alcohol</button><button data-t="p">Voortgang</button><button data-t="i">Instellingen</button></nav>
+<script>
+var DAG=["zo","ma","di","wo","do","vr","za"];
+function K(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function P(k){var a=k.split("-");return new Date(+a[0],+a[1]-1,+a[2])}
+function shift(k,n){var d=P(k);d.setDate(d.getDate()+n);return K(d)}
+var today=K(new Date()),sel=today,tab="v",S={goal:{start:null,target:null,max:7},days:{},u:0},LS="gezonde-koers-v1",tm=null,dbDoc=null;
+function lsGet(){try{var r=localStorage.getItem(LS);return r?JSON.parse(r):null}catch(e){return null}}
+function save(){S.u=Date.now();var e_=document.getElementById("svd");if(e_){var t_=new Date(S.u);e_.style.display="block";e_.textContent="✓ Alles is opgeslagen · "+("0"+t_.getHours()).slice(-2)+":"+("0"+t_.getMinutes()).slice(-2)}try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}
+ clearTimeout(tm);tm=setTimeout(function(){if(dbDoc){try{dbDoc.set(JSON.parse(JSON.stringify(S))).catch(function(){})}catch(e){}}},700)}
+function day(k){return S.days[k]||(S.days[k]={a:0,w:null,m:0,t:"Wandelen",p:0,l:false,s:null,c:"",g:"",gd:false})}
+function gdone(d){return d.gd===true?(d.g?d.g.split(" + "):[]):(Array.isArray(d.gd)?d.gd:[])}
+function gnot(d){return Array.isArray(d.gn)?d.gn:[]}
+function goalsHtml(d){var dn=gdone(d),nt=gnot(d),s="";d.g.split(" + ").forEach(function(o,i){var y=dn.indexOf(o)>=0,n=nt.indexOf(o)>=0;s+='<div class="row" style="padding:4px 0"><span style="flex:1">'+esc(o)+'</span><div class="seg mini"><button data-g="'+i+'" data-v="1" class="'+(y?"on":"")+'">Gehaald</button><button data-g="'+i+'" data-v="0" class="'+(n?"on":"")+'">Niet gehaald</button></div></div>'});return s}
+function sec(t){return '<div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);border-bottom:1px solid var(--bd);padding-bottom:4px;margin:20px 2px 10px">'+t+'</div>'}
+function alText(t,cur){var w=t.dag==="vandaag"?"Vandaag":"Op deze dag",g=["geen alcohol gedronken","1 glas gedronken","2 tot 3 glazen gedronken","4 tot 5 glazen gedronken","meer dan 5 glazen gedronken"],x=cur==null?w+" heb je bij alcohol nog niets ingevuld.":w+" heb je "+g[cur]+".";
+ if(t.zin_in_alcohol_0_tot_10!=null)x+=" Je zin in alcohol was "+t.zin_in_alcohol_0_tot_10+" op 10.";
+ var m=t.momenten.concat(t.redenen);if(m.length)x+=" Het speelde vooral rond: "+m.join(", ").toLowerCase()+".";
+ return x}
+function alData(d){var cur=d.ac!=null?d.ac:(d.l&&d.a>0?(d.a<=1?1:d.a<=3?2:d.a<=5?3:4):null),ws=weekStats();return{cur:cur,t:{dag:sel===today?"vandaag":sel,glazen_op_deze_dag:cur==null?null:["geen","1","2 tot 3","4 tot 5","meer dan 5"][cur],zin_in_alcohol_0_tot_10:d.z==null?null:d.z,momenten:moments(d),redenen:reasons(d),toelichting:d.ct||""}}}
+var GK={mail:"",st:""};var SMP=null,SP=null,SL=null,SX={};
+var HT=document.documentElement.getAttribute("data-theme"),TH="auto";
+try{TH=localStorage.getItem("gezonde-koers-thema")||"auto"}catch(e){}
+function applyTh(){var r=document.documentElement;if(TH==="light"||TH==="dark")r.setAttribute("data-theme",TH);else if(HT)r.setAttribute("data-theme",HT);else r.removeAttribute("data-theme")}
+applyTh();
+function fmtSum(t){return esc(t).split("\n").map(function(l){return /^(Wat je hebt opgeschreven|Waar het goed gaat of je vordert|Waar verbetering mogelijk is):?$/.test(l.trim())?"<b>"+l.trim()+"</b>":l}).join("\n")}
+function scOn(c){return !S.sc||S.sc[c]!==0}
+var SCL=[["n","Notities"],["o","Ochtend"],["a","Alcohol"],["b","Beweging"],["w","Gewicht"],["p","Positieve dingen"],["g","Dagdoelen"]];
+function sumData(k){var ds=k==="g"?[shift(today,-1)]:last(k==="w"?7:30),o=[];
+ ds.forEach(function(dk){var d=S.days[dk];if(!d)return;var r={datum:dk};
+  if(scOn("n")){var n=(d.n||[]).map(function(e){var q={};if(e.dp)q.dagdeel=e.dp;if(e.m!=null)q.stemming=["niet lekker","oké","goed"][e.m];if(e.r&&e.r.length)q.speelt_mee=e.r.map(function(l){var z=e.rp&&e.rp[l];return l+" ("+(z==="+"?"positief":z==="-"?"negatief":"neutraal")+")"});if(e.x)q.tekst=e.x;return q}).filter(function(q){return q.tekst||q.stemming||q.speelt_mee});if(n.length)r.notities=n}
+  if(scOn("o")){var mo=d.mo||{};if(mo.s!=null)r.slaap=["slecht","redelijk","goed"][mo.s];if(mo.f!=null)r.fit=["moe","gaat wel","fit"][mo.f];if(mo.o)r.oor_last=["geen","wat","veel"][mo.o]}
+  if(scOn("a")){if(d.l)r.alcohol_glazen=d.a;if(d.z!=null)r.zin_in_alcohol_0_tot_10=d.z;var mm=moments(d),rr=reasons(d);if(mm.length)r.alcohol_momenten=mm;if(rr.length)r.alcohol_redenen=rr;if(d.ct)r.alcohol_toelichting=d.ct}
+  if(scOn("b")){if(d.m>0){r.beweging_minuten=d.m;r.beweging_soort=d.t;if(d.p!=null)r.lijf_en_gewrichten=["goed","wat moeizaam","wat pijnlijk"][d.p]}if(d.pn)r.beweging_toelichting=d.pn}
+  if(scOn("w")&&d.w)r.gewicht_kg=d.w;
+  if(scOn("p")){var ps=(Array.isArray(d.pos)?d.pos:[]).filter(Boolean);if(ps.length)r.positieve_dingen=ps}
+  if(scOn("g")&&d.g){r.dagdoel=d.g;var gd=gdone(d);if(gd.length)r.dagdoel_gehaald=gd}
+  if(Object.keys(r).length>1)o.push(r)});
+ var j=JSON.stringify(o);while(j.length>30000&&o.length>1){o.shift();j=JSON.stringify(o)}
+ return{n:o.length,j:j}}
+function runSum(k){if(!SCL.some(function(o){return scOn(o[0])})){SP=k;SL={k:k,msg:"Zet minstens één onderdeel aan."};render();return}var x=sumData(k),lab=k==="g"?"gisteren":k==="w"?"de afgelopen 7 dagen":"de afgelopen maand (30 dagen)";SP=k;
+ if(!x.n){SL={k:k,msg:"Geen aantekeningen of gegevens in deze periode."};render();return}
+ SL={k:k,msg:"Even denken… dit kan een halve minuut duren."};render();
+ var pr="Je bent een warme, eerlijke en nuchtere coach in een persoonlijke gezondheidsapp. De gebruiker werkt aan minder alcohol, meer bewegen en een gezond gewicht en houdt een dagboek bij. Hieronder staan zijn eigen aantekeningen en cijfers over "+lab+" (JSON, per dag). Schrijf in het Nederlands een goede samenvatting in lopende tekst, in drie delen. Zet elk deel onder een eigen kopregel, precies met deze woorden en zonder opmaak: Wat je hebt opgeschreven / Waar het goed gaat of je vordert / Waar verbetering mogelijk is. Gebruik de eigen woorden en onderwerpen van de gebruiker, noem concrete cijfers en verbanden (bijvoorbeeld tussen stemming, slaap, beweging en alcohol) alleen als ze echt uit de gegevens blijken. Wees eerlijk maar vriendelijk, zonder oordeel of schuldgevoel. Geef hooguit twee kleine, haalbare suggesties en geen medisch advies. Verzin niets en speculeer niet over onderdelen die niet zijn meegestuurd. Is er weinig ingevuld, zeg dat dan kort. Maximaal ongeveer 200 woorden, spreek de gebruiker aan met je en gebruik geen sterretjes of hekjes. Gegevens: "+x.j;
+ SMP(pr,{modelTier:"default",cache:false}).then(function(r){SX[k]={t:(r.text||"").trim()};SL=null;render()}).catch(function(e){SL={k:k,msg:e&&e.code==="not_granted"?"Je hebt geen toestemming gegeven om samen te vatten.":e&&e.code==="rate_limited"?"Even wachten en dan opnieuw proberen.":"Het lukte niet, probeer het later nog eens."};render()})}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function last(n){var o=[];for(var i=n-1;i>=0;i--)o.push(shift(today,-i));return o}
+function mmOpts(v){var s="",a=[];for(var i=0;i<=16;i++)a.push(i*15);if(v&&a.indexOf(v)<0){a.push(v);a.sort(function(x,y){return x-y})}a.forEach(function(m){s+='<option value="'+m+'"'+((v||0)===m?" selected":"")+'>'+(m===0?"Geen":m>=60?(Math.floor(m/60)+" u"+(m%60?" "+(m%60)+" min":"")):m+" min")+'</option>'});return s}
+var CH=["Geen alcohol","Sportschool","30 min wandelen of fietsen","Hardlopen","Saxofoon spelen","Gitaar spelen"],dr={m:null,r:[],rp:{},x:"",h:false},RS=["Werk","Nachtrust","Lichaam","Lichaamsbeeld","Verbonden voelen","Weer","Stress","Seks"];
+function dm(d){var a=(d.n||[]).filter(function(e){return e.m!=null});if(a.length)return a.reduce(function(n,e){return n+e.m},0)/a.length;return d.s==null?null:d.s}
+var MO=["Borrel / sociaal","Na het avondeten","Avond op de bank","Uit eten / terras","Thuis aan het werk","Anders"],RE=["Craving","Gewoonte","Stress of vermoeidheid","Onrustig voelen","Verveling","Ontspannen","Beloning","Gezelligheid","Anders"];
+function cbase(d){return Array.isArray(d.cs)?d.cs:(d.c?[d.c]:[])}
+function moments(d){return cbase(d).filter(function(x){return MO.indexOf(x)>=0})}
+function reasons(d){var a=Array.isArray(d.rs)?d.rs.slice():[];if(d.k===0&&a.indexOf("Craving")<0)a.push("Craving");if(d.k===2&&a.indexOf("Gewoonte")<0)a.push("Gewoonte");cbase(d).forEach(function(x){if(x!=="Anders"&&MO.indexOf(x)<0&&RE.indexOf(x)>=0&&a.indexOf(x)<0)a.push(x)});return a}
+function mig(d){var rs=reasons(d);d.cs=moments(d);d.rs=rs;d.k=null}
+var DEF=["Potje schaken","Potje Tetris","Gitaar spelen","Rondje wandelen","Lekker gerecht uitzoeken"];
+function alts(){return Array.isArray(S.alt)?S.alt.map(function(x){return x==="Lekker gerechten uitzoeken"?"Lekker gerecht uitzoeken":x}):DEF}
+function altHtml(){var a=alts();if(!a.length)return "<small>Drink een groot glas water of ga even naar buiten.</small>";return "<small>"+a.map(function(x){return "• "+esc(x)}).join("<br>")+"</small>"}
+var WT=null,wti=null;
+function wOpen(){clearInterval(wti);WT={step:0,type:null,end:0,res:null};wDraw()}
+function wClose(){clearInterval(wti);WT=null;var o=document.getElementById("wb");if(o)o.remove()}
+function wTick(){if(!WT||WT.step!==1)return;var r=Math.max(0,WT.end-Date.now()),c=$("wc");if(c)c.textContent=Math.floor(r/60000)+":"+String(Math.floor(r/1000)%60).padStart(2,"0");if(r<=0){clearInterval(wti);WT.step=2;wDraw()}}
+function wDraw(){var o=document.getElementById("wb");if(!o){o=document.createElement("div");o.id="wb";o.style.cssText="position:fixed;top:0;left:0;right:0;bottom:0;z-index:20;background:var(--bg);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px 40px";document.body.appendChild(o)}
+ var h='<div style="max-width:520px;margin:0 auto">',B='class="btn" style="width:100%;margin-bottom:8px;text-align:left"';
+ if(WT.step===0){h+='<h1>Even stilstaan</h1><p class="sub">Je hebt zin in alcohol. Wat is het eigenlijk?</p>';[0,2,1].forEach(function(i){var n=["Craving","Weet ik niet","Gewoonte"][i];h+='<button '+B+' data-w="'+i+'"><b>'+n+'</b><br><small>'+["Een echte drang of hunkering","Ik weet niet wat het is","Automatisch, zonder erbij na te denken"][i]+'</small></button>'});h+='<button class="btn" id="wx" style="width:100%">Annuleren</button>'}
+ else if(WT.step===1){h+=(WT.type===2?'<h1>Dit is een gewoonte</h1><p class="sub">Wat kun je nu in plaats daarvan doen?</p>':'<h1>Wacht 10 minuten</h1><div class="big" id="wc" style="font-size:56px;margin:16px 0"></div>')+(WT.type!==2?'<div class="card"><h2>Hoe sterk is de drang?</h2><div class="row"><input id="wz" type="range" min="0" max="10" step="1" style="padding:0;border:0;background:none" value="'+(day(today).z==null?0:day(today).z)+'"><b id="wzv" style="min-width:30px;text-align:right">'+(day(today).z==null?"–":day(today).z)+'</b></div><small>0 = geen zin, 10 = heel sterke drang.</small></div>':'')+'<div class="card"><h2>Probeer ondertussen</h2>'+altHtml()+'</div><button class="btn" id="ws" style="width:100%">Ik wil nu kiezen</button><div class="row" style="margin-top:8px;gap:8px"><button class="btn" id="wb0" style="flex:1">← Terug</button><button class="btn" id="wx2" style="flex:1">Annuleren</button></div>'}
+ else if(WT.step===2){h+='<h1>Hoe gaat het nu?</h1><p class="sub">Je hebt even stilgestaan. Wat kies je?</p><button '+B+' data-r="over"><b>'+(WT.type===2?"Ik doe iets anders":"De zin is voorbijgegaan")+'</b></button><button '+B+' data-r="drink"><b>Ik drink toch iets</b></button><div class="row" style="margin-top:8px;gap:8px"><button class="btn" id="wb0" style="flex:1">← Terug</button><button class="btn" id="wx2" style="flex:1">Annuleren</button></div>'}
+ else{var n=(S.waits||[]).filter(function(w){return w.r==="over"&&ok(w.k)}).length;h+='<h1>'+(WT.res==="over"?"Goed gedaan":"Dat is oké")+'</h1><p class="sub">'+(WT.res==="over"?(WT.type===2?"Je hebt het automatisme doorbroken. Tot nu toe: ":"Je hebt een drang laten voorbijgaan. Tot nu toe: ")+n+" keer.":"Er is geen oordeel. Vul je glas straks in bij Glazen alcohol, zodat je overzicht klopt.")+'</p><button class="btn" id="wu" style="width:100%;margin-bottom:8px">Verkeerd gekozen? Terug</button><button class="btn pri" id="wd" style="width:100%">Sluiten</button>'}
+ o.innerHTML=h+'</div>';
+ o.querySelectorAll("[data-w]").forEach(function(b){b.onclick=function(){WT.type=+b.dataset.w;WT.step=1;WT.end=Date.now()+600000;wDraw();clearInterval(wti);if(WT.type!==2){wti=setInterval(wTick,500);wTick()}}});
+ if($("wx"))$("wx").onclick=wClose;
+ if($("wx2"))$("wx2").onclick=wClose;
+ if($("wb0"))$("wb0").onclick=function(){clearInterval(wti);WT.step=0;wDraw()};
+ if($("wu"))$("wu").onclick=function(){(S.waits||[]).pop();save();WT.step=2;wDraw()};
+ if($("wz")){$("wz").oninput=function(){$("wzv").textContent=this.value};$("wz").onchange=function(){var d=day(today);d.z=+this.value;d.l=true;WT.z=+this.value;save()}}
+ if($("ws"))$("ws").onclick=function(){clearInterval(wti);WT.step=2;wDraw()};
+ o.querySelectorAll("[data-r]").forEach(function(b){b.onclick=function(){var t=new Date();(S.waits=S.waits||[]).push({k:today,t:String(t.getHours()).padStart(2,"0")+":"+String(t.getMinutes()).padStart(2,"0"),y:WT.type,z:WT.z==null?null:WT.z,r:b.dataset.r});save();WT.res=b.dataset.r;WT.step=3;wDraw()}});
+ if($("wd"))$("wd").onclick=function(){wClose();render()}}
+function ok(k){return k>=(S.start||"2026-11-09")}
+function weekStats(){var ds=last(7),g=0,dry=0,mins=0;ds.forEach(function(k){var d=S.days[k];if(d&&d.l&&ok(k)){g+=d.a;if(d.a===0)dry++;mins+=d.m}});return{g:g,dry:dry,mins:mins}}
+function streak(){var n=0,k=today;if(!(S.days[k]&&S.days[k].l))k=shift(k,-1);while(ok(k)&&S.days[k]&&S.days[k].l&&S.days[k].a===0){n++;k=shift(k,-1)}return n}
+function weights(){return Object.keys(S.days).filter(function(k){return S.days[k].w}).sort().map(function(k){return{k:k,w:S.days[k].w}})}
+function painWarn(){var a=S.days[today],b=S.days[shift(today,-1)];return (a&&a.p>=1&&b&&b.p>=1)||(a&&a.p>=2)}
+function fmt(k){var d=P(k);return DAG[d.getDay()]+" "+d.getDate()+"-"+(d.getMonth()+1)}
+function dl(k){var d=P(k);return ["zondag","maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag"][d.getDay()]+" "+d.getDate()+" "+["januari","februari","maart","april","mei","juni","juli","augustus","september","oktober","november","december"][d.getMonth()]}
+function nl(x){return String(Math.round(x*10)/10).replace(".",",")}
+
+function pk(a,z){var n=z||0;for(var i=0;i<today.length;i++)n+=today.charCodeAt(i);return a[n%a.length]}
+function bem(A){var ws=weekStats(),mx=S.goal.max,G=nl(ws.g);
+ if(A){var st=streak(),dg=last(7).filter(function(k){return S.days[k]&&S.days[k].l&&ok(k)}).length;
+  if(!dg&&!st)return pk(["Dit is jouw plek om rustig te volgen hoe het gaat. Elke eerlijke invoer helpt, ook op lastige dagen.","Hier houd je bij hoe het gaat, op jouw tempo. Eerlijk invullen is al de helft.","Je hoeft hier niets te bewijzen. Gewoon bijhouden wat er speelt is een goed begin."],1);
+  if(st>=2)return pk([st+" alcoholvrije dagen op rij. Dat is echt een prestatie. Hou vast wat voor je werkt.","Al "+st+" dagen op rij zonder alcohol. Dat kost moeite en je doet het gewoon.",st+" dagen alcoholvrij achter elkaar. Je laat zien dat het kan."],2);
+  if(ws.g>mx)return pk(["Deze week zit je boven je doel: "+G+" van "+mx+" glazen. Dat mag je eerlijk zien. Perfect hoeft niet, een volgende alcoholvrije dag is al een stap.","Deze week ligt het aantal glazen hoger dan je doel ("+G+" van "+mx+"). Dat is informatie, geen oordeel. Morgen is een nieuwe kans.","Je zit deze week boven je doel ("+G+" van "+mx+"). Eerlijk bijhouden blijft waardevol en een nieuwe dag begint schoon."],3);
+  if(ws.dry>0)return pk(["Je hebt deze week al "+ws.dry+" alcoholvrije dag"+(ws.dry>1?"en":"")+" en zit op "+G+" van "+mx+" glazen. Je zit op koers.","Deze week al "+ws.dry+" alcoholvrije dag"+(ws.dry>1?"en":"")+". Met "+G+" van "+mx+" glazen lig je goed op schema.","Je ligt goed op koers: "+ws.dry+" alcoholvrije dag"+(ws.dry>1?"en":"")+" en "+G+" van "+mx+" glazen."],4);
+  return pk(["Je zit deze week binnen je doel ("+G+" van "+mx+" glazen). Elke alcoholvrije dag telt.","Binnen je weekdoel: "+G+" van "+mx+" glazen. Een prima week tot nu toe.","Je blijft deze week binnen je doel ("+G+" van "+mx+"). Elke alcoholvrije dag is extra winst."],5);}
+ var dd=S.days[today],gt=dd&&dd.g?dd.g.split(" + ").length:0,pl=gt>1;
+ if(gt&&gdone(dd).length===gt)return pk(["Je hebt je doel"+(pl?"en":"")+" van vandaag gehaald. Goed gedaan!","Alles van je lijstje voor vandaag is gelukt. Mooi!","Doel"+(pl?"en":"")+" gehaald. Geniet er even van."],6);
+ var w=weights().filter(function(x){return ok(x.k)}),p=[],m=ws.mins,mv=S.goal.mv||150;
+ if(w.length>1){var df=w[w.length-1].w-w[0].w,X=nl(Math.abs(df));p.push(df<-0.05?pk(["Je bent "+X+" kg lichter dan bij de start. Mooi, in een tempo dat je kunt volhouden.",X+" kg minder dan bij de start. Je bouwt dit rustig op en dat werkt.","Je staat "+X+" kg lager dan toen je begon. Goed bezig."],7):df>0.05?pk(["Je gewicht staat "+X+" kg hoger dan bij de start. Dat schommelt. Kijk naar de lijn over weken, niet over dagen.",X+" kg hoger dan bij de start. Een paar dagen zegt weinig, het gaat om het grotere beeld.","Je gewicht ligt "+X+" kg boven je startpunt. Dat kan van alles komen. De trend over weken telt."],8):pk(["Je gewicht is stabiel sinds de start.","Je gewicht staat stil sinds de start. Stabiel is ook een resultaat."],9))}
+ p.push(m>=mv?pk(["Je hebt deze week "+m+" minuten bewogen: meer dan je doel van "+mv+" minuten.","Al "+m+" minuten beweging deze week, boven je doel van "+mv+". Sterk!","Met "+m+" minuten zit je deze week boven je doel van "+mv+". Goed bezig."],10):m>0?pk(["Je hebt deze week al "+m+" minuten bewogen. Elke wandeling of fietstocht telt.","Deze week staat de teller op "+m+" minuten beweging. Elke stap draagt bij.","Al "+m+" minuten beweging deze week. Stap voor stap."],11):pk(["Een korte wandeling of fietstocht van 15 minuten is een mooie start van de dag.","Een rondje buiten van 15 minuten is een mooi begin van de dag.","Een stukje wandelen of fietsen, al is het kort, maakt de dag meteen lichter."],12));
+ return p.join(" ")}
+function viewV(){
+ var d=day(sel),isT=sel===today,h="",A=tab==="a";
+ var ws=weekStats(),max=S.goal.max;
+ if(!A&&painWarn()) h+='<div class="msg w"><b>Luister naar je lichaam.</b> Je meldt een paar dagen klachten. Neem een rustdag of kies iets zachts (wandelen, rekken).</div>';
+ else h+='<div class="msg">'+bem(A)+'</div>';
+ if(isT&&A)h+='<button class="btn pri" id="wbtn" style="width:100%;margin-bottom:12px">🕓 Ik heb zin in alcohol</button>';
+ h+='<div class="row" style="margin-bottom:10px"><button class="btn" id="pv">←</button><div style="text-align:center"><h1 style="margin:0">'+(isT?"Vandaag":sel===shift(today,-1)?"Gisteren":dl(sel).split(" ")[0].replace(/^./,function(c){return c.toUpperCase()}))+'</h1><small>'+dl(sel)+'</small></div><button class="btn" id="nx"'+(isT?" disabled":"")+'>→</button></div>';
+ if(!A)h+=sec('Door de dag heen');
+ if(d.g&&!A)h+='<div class="card" style="border-color:var(--ac)"><h2>🎯 Doel voor '+(isT?"vandaag":"deze dag")+'</h2>'+goalsHtml(d)+'</div>';
+ if(!A){
+ h+='<div class="card"><h2>⚖️ Gewicht</h2><div class="row" style="gap:8px"><input id="wt" type="number" inputmode="decimal" step="0.1" placeholder="Gewicht (optioneel)" value="'+(d.w||"")+'"><span>kg</span></div><small>Wegen hoeft niet elke dag. 1–2 keer per week op dezelfde tijd is genoeg.</small></div>';
+ var mo=d.mo||(d.mo={s:null,f:null,o:null});
+ h+='<div class="card"><h2>🌅 Ochtend</h2>';
+ [["s","Hoe heb je geslapen?",["Slecht","Redelijk","Goed"]],["f","Hoe fit voel je je?",["Moe","Gaat wel","Fit"]],["o","Hoe is je oor?",["Geen last","Wat last","Veel last"]]].forEach(function(q){h+='<label>'+q[1]+'</label><div class="seg" data-q="'+q[0]+'">';(q[0]==="s"||q[0]==="f"?[2,1,0]:[0,1,2]).forEach(function(i){var o=q[2][i];h+='<button data-v="'+i+'" class="'+(mo[q[0]]===i?"on"+((q[0]==="o"&&i>0)||(q[0]!=="o"&&i===0)?" w":""):"")+'">'+o+'</button>'});h+='</div>'});
+ h+='</div>';
+if(isT){h+='<div class="card"><h2>🙂 Hoe voel je je nu?</h2><div class="seg" id="sm">';
+ [2,1,0].forEach(function(i){var o=["Niet lekker","Oké","Goed"][i];h+='<button data-s="'+i+'" class="'+(dr.m===i?"on":"")+'">'+o+'</button>'});
+ h+='</div><label>Wat speelt mee? (optioneel)</label><small style="display:block;margin:2px 0 6px">Tik 1× voor “speelt mee”, 2× voor positief (+), 3× voor negatief (−), 4× om uit te zetten.</small><div class="seg mini" id="rs" style="flex-wrap:wrap">';
+ RS.forEach(function(o){var on=dr.r.indexOf(o)>=0,q=on&&dr.rp&&dr.rp[o];h+='<button data-rl="'+o+'" class="'+(on?"on "+(q==="+"?"pos":q==="-"?"neg":"neu"):"")+'">'+(q==="+"?"+ ":q==="-"?"− ":"")+o+'</button>'});
+ h+='</div><textarea id="nt" rows="3" maxlength="500" placeholder="Schrijf erbij wat je wilt, of laat leeg…" style="margin-top:10px;width:100%;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);font:inherit;color:var(--tx)">'+esc(dr.x||"")+'</textarea><div style="margin-top:8px;text-align:right"><small id="nhint" style="margin-right:8px"></small><button class="btn pri" id="na">Vastleggen</button></div><small>Tijd en dagdeel (ochtend, middag, avond) worden automatisch bijgehouden. Je kunt zo vaak invullen als je wilt.</small></div>'}
+ h+=sec('Terugblik op '+(isT?'vandaag':'deze dag'));
+ h+='<div class="card"><h2>🚶 Beweging</h2><label>Soort</label><select id="mt">';
+ ["Wandelen","Fietsen","Hardlopen","Sportschool"].forEach(function(o){h+='<option'+(o===d.t?" selected":"")+'>'+o+'</option>'});
+ h+='</select><label>Minuten</label><select id="mm">'+mmOpts(d.m)+'</select>';
+ h+='<label>Hoe voelen je lijf en gewrichten?</label><div class="seg" id="pn">';
+ ["Goed","Wat moeizaam","Wat pijnlijk"].forEach(function(o,i){h+='<button data-p="'+i+'" class="'+(d.p===i?"on"+(i?" w":""):"")+'">'+o+'</button>'});
+ h+='</div><input id="pt" type="text" maxlength="200" placeholder="Toelichting (optioneel), bijv. waar of wanneer" style="margin-top:8px" value="'+esc(d.pn||"")+'"><div style="margin-top:12px"><small>Deze week: '+ws.mins+' van '+(S.goal.mv||150)+' min</small><div style="height:8px;background:var(--bd);border-radius:4px;margin-top:4px"><div style="height:8px;border-radius:4px;background:var(--ac);width:'+Math.min(100,Math.round(ws.mins/(S.goal.mv||150)*100))+'%"></div></div></div></div>';
+ }
+ if(A){
+h+='<div class="card"><h2>🍷 Alcohol</h2><label style="margin-top:0">Hoeveel glazen vandaag?</label><div class="seg">';
+ var cur=d.ac!=null?d.ac:(d.l&&d.a>0?(d.a<=1?1:d.a<=3?2:d.a<=5?3:4):null);
+ ["Geen","1","2–3","4–5","Meer dan 5"].forEach(function(o,i){h+='<button data-ac="'+i+'" class="'+(cur===i?"on":"")+'">'+o+'</button>'});
+ h+='</div>';
+ h+='<p class="sub" style="text-align:center;margin:8px 0 0">Deze week: ongeveer '+nl(ws.g)+' van max '+max+' glazen · '+ws.dry+' alcoholvrije dagen</p></div>';
+ if(d.a>0){h+='<div class="card"><h2>🕰️ Wanneer en waarom was dat?</h2><label style="margin-top:0">Wanneer of waar?</label><div class="seg mini" id="mo" style="flex-wrap:wrap">';
+ var cm=moments(d);MO.forEach(function(o){h+='<button class="'+(cm.indexOf(o)>=0?"on":"")+'">'+o+'</button>'});
+ h+='</div><label>Wat was de reden?</label><div class="seg mini" id="rz" style="flex-wrap:wrap">';var rn=reasons(d);RE.forEach(function(o){h+='<button class="'+(rn.indexOf(o)>=0?"on":"")+'">'+o+'</button>'});
+ h+='</div><input id="ct" type="text" maxlength="200" placeholder="Toelichting (optioneel)" style="margin-top:8px" value="'+esc(d.ct||"")+'"></div>'}
+ h+='<div class="card"><h2>🔥 Zin in alcohol</h2><div class="row"><input id="zn" type="range" min="0" max="10" step="1" style="padding:0;border:0;background:none" value="'+(d.z==null?0:d.z)+'"><b id="zv" style="min-width:30px;text-align:right">'+(d.z==null?"–":d.z)+'</b></div><small>0 = geen zin, 10 = heel sterke drang. Ook op alcoholvrije dagen goed om bij te houden.</small></div>';
+h+='<div class="card"><h2>🧰 Mijn lijstje voor als ik zin heb</h2><small>Dit zie je tijdens de wachttijd.</small>';
+ alts().forEach(function(x,i){h+='<div class="row" style="padding:6px 0;border-top:1px solid var(--bd);margin-top:6px"><span>'+esc(x)+'</span><button class="btn" data-ad="'+i+'" style="padding:2px 10px">×</button></div>'});
+ h+='<div class="row" style="margin-top:10px;gap:8px"><input id="ai" type="text" maxlength="60" placeholder="Voeg iets toe…"><button class="btn pri" id="aa" style="white-space:nowrap">Toevoegen</button></div></div>';
+ }
+ if(!A){
+var al=alData(d);
+ h+='<div class="card"><h2>🍷 Alcohol '+(isT?"vandaag":"op deze dag")+'</h2><div style="white-space:pre-wrap">'+esc(alText(al.t,al.cur))+'</div></div>';
+ var nn=d.n||[];
+ if(nn.length){h+='<div class="card"><h2>📝 Je dag</h2>';nn.slice().reverse().forEach(function(e,i){var ix=nn.length-1-i;h+='<div style="'+(i?'border-top:1px solid var(--bd);margin-top:8px;':'')+'padding-top:8px"><div class="row"><small>'+(e.dp?e.dp+" ":"")+e.t+(e.m!=null?" · "+["Niet lekker","Oké","Goed"][e.m]:"")+(e.h?" · moeilijk moment":"")+(e.r&&e.r.length?" · "+e.r.map(function(l){var q=e.rp&&e.rp[l];return l+(q==="+"?" (+)":q==="-"?" (−)":"")}).join(", "):"")+'</small><button class="btn" data-del="'+ix+'" style="padding:2px 10px">×</button></div>'+(e.x?'<div style="white-space:pre-wrap">'+esc(e.x)+'</div>':'')+'</div>'});h+='</div>'}
+ var ps=Array.isArray(d.pos)?d.pos:[];
+ h+='<div class="card"><h2>🌟 Drie positieve dingen van deze dag</h2>';
+ [0,1,2].forEach(function(i){h+='<input class="pos" data-pi="'+i+'" type="text" maxlength="200" placeholder="'+(i+1)+'." value="'+esc(ps[i]||"")+'" style="'+(i?'margin-top:8px':'')+'">'});
+ h+='</div>';
+ var nd=day(shift(sel,1)),np=nd.g?nd.g.split(" + "):[];
+ h+=sec('Vooruitkijken naar '+(isT?'morgen':'de volgende dag'));
+ h+='<div class="card" style="border-color:var(--ac)"><h2>📌 Doel voor '+(isT?"morgen":fmt(shift(sel,1)))+'</h2><div class="seg" style="flex-wrap:wrap;margin-bottom:8px" id="qg">';
+ CH.forEach(function(o){h+='<button style="flex:1 1 45%" class="'+(np.indexOf(o)>=0?"on":"")+'">'+o+'</button>'});
+ h+='</div><input id="ng" type="text" maxlength="80" placeholder="Of typ je eigen doel…" value="'+esc(np.filter(function(x){return CH.indexOf(x)<0}).join(" + "))+'"><small>Tik meerdere doelen aan als je wilt. Morgen zie je het bovenaan en vink je af of het gelukt is.</small></div>';
+ }
+ if(!A)h+='<div id="svd" class="msg" style="display:'+(d.l?"block":"none")+';text-align:center;margin-top:14px">✓ Alles is opgeslagen</div>';
+ return h}
+
+function lineChart(){
+ var w=weights();if(w.length<2)return'<p class="sub">Vul minstens twee keer je gewicht in om de lijn te zien.</p>';
+ var vals=w.map(function(x){return x.w}),t=S.goal.target;
+ var mn=Math.min.apply(null,vals.concat(t?[t]:[]))-1,mx=Math.max.apply(null,vals)+1;
+ var X=function(i){return 30+i*(280/(w.length-1))},Y=function(v){return 10+(mx-v)/(mx-mn)*90};
+ var pts=w.map(function(x,i){return X(i)+","+Y(x.w)}).join(" ");
+ var s='<svg viewBox="0 0 320 130"><polyline fill="none" stroke="var(--ac)" stroke-width="3" points="'+pts+'"/>';
+ w.forEach(function(x,i){s+='<circle cx="'+X(i)+'" cy="'+Y(x.w)+'" r="3.5" fill="var(--ac)"/>'});
+ if(t)s+='<line x1="30" x2="310" y1="'+Y(t)+'" y2="'+Y(t)+'" stroke="var(--wa)" stroke-dasharray="5 4"/><text x="310" y="'+(Y(t)-4)+'" font-size="10" text-anchor="end" fill="var(--wa)">doel '+nl(t)+'</text>';
+ s+='<text x="2" y="14" font-size="10" fill="var(--mu)">'+nl(mx)+'</text><text x="2" y="102" font-size="10" fill="var(--mu)">'+nl(mn)+'</text>';
+ s+='<text x="30" y="122" font-size="10" fill="var(--mu)">'+fmt(w[0].k)+'</text><text x="310" y="122" font-size="10" text-anchor="end" fill="var(--mu)">'+fmt(w[w.length-1].k)+'</text></svg>';
+ return s}
+function barChart(){
+ var ds=last(14),mx=Math.max(3,Math.max.apply(null,ds.map(function(k){return S.days[k]?S.days[k].a:0})));
+ var s='<svg viewBox="0 0 320 110">';
+ ds.forEach(function(k,i){var d=S.days[k],x=8+i*22,l=d&&d.l&&ok(k),a=l?d.a:0,hh=a?a/mx*70:4;
+  s+='<rect x="'+x+'" y="'+(80-hh)+'" width="16" height="'+hh+'" rx="3" fill="'+(!l?"var(--bd)":a?"var(--wa)":"var(--ac)")+'"/>';
+  s+='<text x="'+(x+8)+'" y="95" font-size="9" text-anchor="middle" fill="var(--mu)">'+DAG[P(k).getDay()]+'</text>';
+});
+ return s+'</svg><small>Kleine staaf = alcoholvrij · hogere staaf = meer glazen · grijs = niet ingevuld</small>'}
+
+function inzicht(){var c={},rc={},lo=[0,0],ot=[0,0];
+ Object.keys(S.days).forEach(function(k){var d=S.days[k];if(!d.l)return;
+  if(d.a>0){moments(d).forEach(function(m){c[m]=(c[m]||0)+1});reasons(d).forEach(function(m){rc[m]=(rc[m]||0)+1})}
+  var m=dm(d);if(m!=null){if(m<0.75){lo[0]+=d.a;lo[1]++}else{ot[0]+=d.a;ot[1]++}}});
+ var s='<div class="card"><h2>Patronen</h2>',ks=Object.keys(c).sort(function(a,b){return c[b]-c[a]});
+ if(ks.length){s+='<small>Vaakst genoemde momenten (aantal dagen):</small><br>';ks.slice(0,3).forEach(function(k){s+='<span class="badge got">'+k+': '+c[k]+'</span>'})}
+ else s+='<small>Noteer bij je glazen het moment, dan verschijnt hier je lastigste situatie.</small>';
+ var kr=Object.keys(rc).sort(function(a,b){return rc[b]-rc[a]});if(kr.length){s+='<br><small>Vaakst genoemde redenen (aantal dagen):</small><br>';kr.slice(0,3).forEach(function(k){s+='<span class="badge got">'+k+': '+rc[k]+'</span>'})}
+ if(lo[1]>=2&&ot[1]>=2)s+='<p style="margin:10px 0 0">Op dagen dat je je niet lekker voelde dronk je gemiddeld <b>'+nl(lo[0]/lo[1])+'</b> glazen, anders <b>'+nl(ot[0]/ot[1])+'</b>.</p>';
+ var wo=(S.waits||[]).filter(function(w){return ok(w.k)}),wn=wo.filter(function(w){return w.r==="over"}).length;
+ if(wo.length)s+='<p style="margin:10px 0 0">Wachtknop gebruikt: <b>'+wo.length+'</b> keer. Zin voorbijgegaan: <b>'+wn+'</b>. Toch iets gedronken: <b>'+(wo.length-wn)+'</b>.</p>';
+ var kc=[0,0,0],kt=0,zs=0,zq=0;Object.keys(S.days).forEach(function(k){var d=S.days[k];if(!d.l||!ok(k))return;if(d.a>0&&d.k!=null&&d.k!==1){kc[d.k]+=d.a;kt+=d.a}if(d.z!=null){zs+=d.z;zq++}});
+ if(zq>0)s+='<p style="margin:10px 0 0">Gemiddelde zin in alcohol: <b>'+nl(zs/zq)+'</b> van 10.</p>';
+ var sd=[0,0],sw=[0,0];Object.keys(S.days).forEach(function(k){var m=S.days[k].mo,p=S.days[shift(k,-1)];if(m&&m.s!=null&&p&&p.l){var t=p.a>0?sd:sw;t[0]+=m.s;t[1]++}});
+ if(sd[1]>=2&&sw[1]>=2)s+='<p style="margin:10px 0 0">Slaapscore (0–2) na een avond met alcohol: <b>'+nl(sd[0]/sd[1])+'</b>, zonder alcohol: <b>'+nl(sw[0]/sw[1])+'</b>.</p>';
+ var dp={ochtend:[0,0],middag:[0,0],avond:[0,0]},mv=[0,0],mq=[0,0],sl=[0,0],sg=[0,0];
+ Object.keys(S.days).forEach(function(k){var d=S.days[k];if(!ok(k))return;(d.n||[]).forEach(function(e){if(e.m!=null&&dp[e.dp]){dp[e.dp][0]+=e.m;dp[e.dp][1]++}});var m=dm(d);if(m==null)return;var t=d.m>0?mv:mq;t[0]+=m;t[1]++;if(d.mo&&d.mo.s!=null){var u=d.mo.s===0?sl:sg;u[0]+=m;u[1]++}});
+ var pd=["ochtend","middag","avond"].filter(function(x){return dp[x][1]>=2}).map(function(x){return x+" "+nl(dp[x][0]/dp[x][1])});
+ if(pd.length)s+='<p style="margin:10px 0 0">Gemiddelde stemming (0 = niet lekker, 2 = goed): '+pd.join(" · ")+'.</p>';
+ if(mv[1]>=2&&mq[1]>=2)s+='<p style="margin:10px 0 0">Op dagen dat je bewoog was je stemming gemiddeld <b>'+nl(mv[0]/mv[1])+'</b>, op dagen zonder beweging <b>'+nl(mq[0]/mq[1])+'</b>.</p>';
+ if(sl[1]>=2&&sg[1]>=2)s+='<p style="margin:10px 0 0">Na een slechte nacht was je stemming gemiddeld <b>'+nl(sl[0]/sl[1])+'</b>, na een betere nacht <b>'+nl(sg[0]/sg[1])+'</b>.</p>';
+ var tp={};Object.keys(S.days).forEach(function(k){var d=S.days[k];if(!ok(k))return;(d.n||[]).forEach(function(e){(e.r||[]).forEach(function(l){var t=tp[l]=tp[l]||{n:0,p:0,m:0,u:0,ms:0,mc:0,ds:{}};t.n++;var q=e.rp&&e.rp[l];if(q==="+")t.p++;else if(q==="-")t.m++;else t.u++;if(e.m!=null){t.ms+=e.m;t.mc++}t.ds[k]=1})})});
+ var tk=Object.keys(tp).sort(function(a,b){return tp[b].n-tp[a].n});
+ if(tk.length){s+='<h2 style="margin-top:14px">Wat speelt mee</h2>';tk.forEach(function(l){var t=tp[l],zs2=0,zc2=0,as2=0,ac2=0;Object.keys(t.ds).forEach(function(k){var d=S.days[k];if(d.z!=null){zs2+=d.z;zc2++}if(d.l){as2+=d.a;ac2++}});
+  s+='<div style="border-top:1px solid var(--bd);padding:6px 0"><b>'+esc(l)+'</b> · '+t.n+'×<br><small>'+[t.p?"+"+t.p+" positief":"",t.m?"−"+t.m+" negatief":"",t.u?t.u+" neutraal":""].filter(Boolean).join(" · ")+(t.mc?" · stemming "+nl(t.ms/t.mc)+" van 2":"")+(zc2?" · zin in alcohol "+nl(zs2/zc2)+" van 10":"")+(ac2?" · gemiddeld "+nl(as2/ac2)+" glazen":"")+'</small></div>'});
+  s+='<small>Gemiddelden zijn van de notities of dagen waarbij je dit onderwerp koos. Oudere notities zonder + of − tellen als neutraal.</small>'}
+ var rec=[];Object.keys(S.days).sort().forEach(function(k){(S.days[k].n||[]).forEach(function(e){rec.push({k:k,e:e})})});
+ if(rec.length){s+='<h2 style="margin-top:14px">Laatste notities</h2>';rec.slice(-4).reverse().forEach(function(r){s+='<div style="border-top:1px solid var(--bd);padding:6px 0"><small>'+fmt(r.k)+' '+r.e.t+(r.e.h||r.e.m===0?' · 😟':'')+'</small><div style="white-space:pre-wrap">'+esc(r.e.x)+'</div></div>'})}
+ if(SMP){s+='<h2 style="margin-top:14px">Samenvatting van je voortgang</h2><small style="display:block;margin-bottom:6px">Alleen wat is aangevinkt gaat naar Claude. De samenvatting wordt niet bewaard.</small><div class="seg mini" style="flex-wrap:wrap;margin-bottom:10px">';SCL.forEach(function(o){s+='<button data-sc="'+o[0]+'" class="'+(scOn(o[0])?"on":"")+'">'+(scOn(o[0])?"✓ ":"")+o[1]+'</button>'});s+='</div><div class="seg mini" style="flex-wrap:wrap">';[["g","Gisteren"],["w","Afgelopen 7 dagen"],["m","Afgelopen maand"]].forEach(function(o){s+='<button data-sm="'+o[0]+'" class="'+(SP===o[0]?"on":"")+'">'+o[1]+'</button>'});s+='</div>';
+  if(SL&&SL.k===SP)s+='<small style="display:block;margin-top:10px">'+SL.msg+'</small>';
+  else if(SP&&SX[SP])s+='<div class="msg" style="margin-top:10px;white-space:pre-wrap">'+fmtSum(SX[SP].t)+'</div><button class="btn" data-sm="'+SP+'" data-re="1" style="margin-top:2px">Opnieuw maken</button> <button class="btn" data-clr="1" style="margin-top:2px">Wis samenvatting</button>';
+  else s+='<small style="display:block;margin-top:10px">Kies een periode. Claude schrijft een samenvatting van de aangevinkte onderdelen.</small>'}
+ return s+'</div>'}
+function viewP(){
+ var ws=weekStats(),w=weights(),g=S.goal,h='<h1>Jouw voortgang</h1><p class="sub">De laatste 7 dagen en je totaal</p>';
+ var diff=w.length>1?w[w.length-1].w-w[0].w:null,cur=w.length?w[w.length-1].w:null;
+ h+='<div class="grid" style="margin-bottom:12px">';
+ h+='<div class="stat"><b>'+streak()+'</b><span>alcoholvrije dagen op rij</span></div>';
+ h+='<div class="stat"><b>'+nl(ws.g)+' / '+g.max+'</b><span>glazen deze week</span></div>';
+ h+='<div class="stat"><b>'+(diff===null?"–":(diff>0?"+":"")+nl(diff)+" kg")+'</b><span>gewicht sinds start</span></div>';
+ h+='<div class="stat"><b>'+ws.mins+' / '+(g.mv||150)+' min</b><span>beweging deze week</span></div></div>';
+ if(cur&&g.target)h+='<div class="msg">Nog <b>'+nl(Math.max(0,cur-g.target))+' kg</b> tot je doel van '+nl(g.target)+' kg. Een rustig tempo van 0,25 tot 0,5 kg per week is gezond en houd je beter vol.</div>';
+ h+='<div class="card"><h2>Gewicht</h2>'+lineChart()+'</div>';
+ h+='<div class="card"><h2>Alcohol, laatste 14 dagen</h2>'+barChart()+'</div>';
+ h+=inzicht();
+ var allDry=Object.keys(S.days).filter(function(k){return ok(k)&&S.days[k].l&&S.days[k].a===0}).length;
+ var B=[["🌱 Eerste alcoholvrije dag",allDry>=1],["🔥 3 dagen op rij",streak()>=3],["🏅 7 dagen op rij",streak()>=7],["🍃 Week binnen je doel",ws.g<=g.max&&last(7).filter(function(k){return S.days[k]&&S.days[k].l}).length>=5],["🚶 Beweegdoel van de week gehaald",ws.mins>=(g.mv||150)],["⚖️ 1 kg kwijt",diff!==null&&diff<=-1],["💪 10 alcoholvrije dagen totaal",allDry>=10],["🎯 5 dagdoelen gehaald",Object.keys(S.days).reduce(function(n,k){return n+gdone(S.days[k]).length},0)>=5]];
+ h+='<div class="card"><h2>Mijlpalen</h2>';B.forEach(function(b){h+='<span class="badge'+(b[1]?" got":"")+'">'+b[0]+'</span>'});
+ return h+'</div>'}
+
+function viewI(){var g=S.goal;
+ return '<h1>Instellingen</h1><p class="sub">Stel dit één keer in; je kunt het altijd aanpassen.</p><div class="card"><h2>Jouw doelen</h2>'
+ +'<label>Startgewicht (kg)</label><input id="g1" type="number" inputmode="decimal" step="0.1" value="'+(g.start||"")+'">'
+ +'<label>Streefgewicht (kg)</label><input id="g2" type="number" inputmode="decimal" step="0.1" value="'+(g.target||"")+'">'
+ +'<label>Maximaal aantal glazen alcohol per week</label><input id="g3" type="number" inputmode="numeric" min="0" value="'+g.max+'">'
+ +'<label>Beweegdoel per week (minuten)</label><input id="g5" type="number" inputmode="numeric" min="0" step="15" value="'+(g.mv||150)+'">'
+ +'<label>Begindatum (eerdere dagen tellen niet mee)</label><input id="g4" type="date" value="'+(S.start||"2026-11-09")+'">'
+ +'<small>Ter info: de Gezondheidsraad adviseert om geen alcohol te drinken, of anders maximaal 1 glas per dag. Elke stap minder is winst. Bouw rustig af.</small>'
+ +'<button class="btn pri" id="gs" style="width:100%;margin-top:12px">Opslaan</button></div>'
+ +'<div class="card"><h2>Weergave</h2><div class="seg">'+[["auto","Automatisch"],["light","Licht"],["dark","Donker"]].map(function(o){return '<button data-th="'+o[0]+'" class="'+(TH===o[0]?"on":"")+'">'+o[1]+'</button>'}).join("")+'</div><small style="display:block;margin-top:8px">Automatisch volgt de instelling van je apparaat. Je keuze wordt alleen op dit apparaat onthouden.</small></div>'
+  +'<div class="card"><h2>Gegevens exporteren</h2><small style="display:block;margin-bottom:10px">Sla een kopie van al je gegevens op als bestand. Handig als reservekopie en om later je gegevens mee te nemen naar een andere plek. Er staan gezondheidsgegevens in, bewaar het bestand dus op een veilige plek.</small><button class="btn" id="ex">Exporteer mijn gegevens</button><small id="exm" style="display:block;margin-top:8px"></small></div>'
+  +'<div class="card"><h2>Gegevens importeren</h2><small style="display:block;margin-bottom:10px">Kies een exportbestand om je gegevens terug te zetten. Dit vervangt wat er nu in de app staat.</small><button class="btn" id="im">Kies exportbestand</button><input type="file" id="imf" accept=".json,application/json" style="display:none"><small id="imm" style="display:block;margin-top:8px"></small></div>'
+  +'<div class="card"><h2>Account</h2><small style="display:block;margin-bottom:10px">Ingelogd als <b>'+esc(GK.mail||"…")+'</b>. <span id="gks">'+esc(GK.st)+'</span></small><button class="btn" id="lo">Uitloggen</button></div>'
+  +'<div class="card"><h2>Tips</h2><small>• Plan elke week een paar vaste alcoholvrije dagen.<br>• Zet een alcoholvrij alternatief klaar (0.0, kruidenthee, bruiswater met citroen).<br>• Wissel zwaardere sporten (hardlopen, sportschool) af met rustiger bewegen, zoals wandelen en fietsen.<br>• Bouw beweging langzaam op en neem na een zware dag een rustdag.</small></div>'}
+
+function render(){var a=document.getElementById("app");
+ a.innerHTML=tab==="v"||tab==="a"?viewV():tab==="p"?viewP():viewI();
+ document.querySelectorAll("nav button").forEach(function(b){b.classList.toggle("on",b.dataset.t===tab)});bind()}
+function $(i){return document.getElementById(i)||{}}
+function bind(){
+ if(tab==="v"||tab==="a"){var d=day(sel);
+  $("pv").onclick=function(){sel=shift(sel,-1);render()};$("nx").onclick=function(){if(sel<today){sel=shift(sel,1);render()}};
+  document.querySelectorAll("[data-q] button").forEach(function(b){b.onclick=function(){var q=b.parentNode.dataset.q,m=d.mo||(d.mo={});m[q]=m[q]===+b.dataset.v?null:+b.dataset.v;save();render()}});
+  document.querySelectorAll("[data-ac]").forEach(function(b){b.onclick=function(){var c=+b.dataset.ac;d.ac=c;d.a=[0,1,2.5,4.5,6][c];d.l=true;save();render()}});
+  $("wt").onchange=function(){var v=parseFloat(this.value.replace(",","."));d.w=v>0?v:null;d.l=true;save()};
+  $("mt").onchange=function(){d.t=this.value;d.l=true;save()};
+  $("pt").onchange=function(){d.pn=this.value.trim();d.l=true;save()};
+  document.querySelectorAll("[data-ad]").forEach(function(b){b.onclick=function(){S.alt=alts().slice();S.alt.splice(+b.dataset.ad,1);save();render()}});
+  $("aa").onclick=function(){var v=$("ai").value.trim();if(!v)return;S.alt=alts().slice();S.alt.push(v);save();render()};
+  if($("wbtn"))$("wbtn").onclick=wOpen;
+  $("zn").oninput=function(){$("zv").textContent=this.value};
+  $("zn").onchange=function(){d.z=+this.value;d.l=true;save()};
+  $("ct").onchange=function(){d.ct=this.value.trim();d.l=true;save()};
+  document.querySelectorAll("#mo button").forEach(function(b){b.onclick=function(){mig(d);var i=d.cs.indexOf(b.textContent);if(i>=0)d.cs.splice(i,1);else d.cs.push(b.textContent);d.l=true;save();render()}});
+  document.querySelectorAll("#rz button").forEach(function(b){b.onclick=function(){mig(d);var i=d.rs.indexOf(b.textContent);if(i>=0)d.rs.splice(i,1);else d.rs.push(b.textContent);d.l=true;save();render()}});
+  function sv(){var t=document.getElementById("nt");if(t)dr.x=t.value;var c=document.getElementById("nh");if(c)dr.h=c.checked}
+  document.querySelectorAll("#sm button").forEach(function(b){b.onclick=function(){sv();dr.m=dr.m===+b.dataset.s?null:+b.dataset.s;render()}});
+  document.querySelectorAll("#rs button").forEach(function(b){b.onclick=function(){sv();var l=b.dataset.rl;dr.rp=dr.rp||{};var i=dr.r.indexOf(l);if(i<0)dr.r.push(l);else{var q=dr.rp[l];if(!q)dr.rp[l]="+";else if(q==="+")dr.rp[l]="-";else{dr.r.splice(i,1);delete dr.rp[l]}}render()}});
+  $("mm").onchange=function(){d.m=Math.max(0,parseInt(this.value)||0);d.l=true;save()};
+  document.querySelectorAll("#pn button").forEach(function(b){b.onclick=function(){d.p=+b.dataset.p;d.l=true;save();render()}});
+  var nd=day(shift(sel,1));
+  $("na").onclick=function(){sv();if(dr.m==null&&!(dr.x||"").trim()){var hn=document.getElementById("nhint");if(hn)hn.textContent="Kies eerst een stemming of schrijf iets.";return}var rpx={};dr.r.forEach(function(l){if(dr.rp&&dr.rp[l])rpx[l]=dr.rp[l]});var t=new Date(),hh=t.getHours();(d.n=d.n||[]).push({t:String(hh).padStart(2,"0")+":"+String(t.getMinutes()).padStart(2,"0"),dp:hh<12?"ochtend":hh<18?"middag":"avond",x:(dr.x||"").trim(),h:dr.h,m:dr.m,r:dr.r.slice(),rp:rpx});dr={m:null,r:[],rp:{},x:"",h:false};save();render()};
+  document.querySelectorAll("[data-del]").forEach(function(b){b.onclick=function(){d.n.splice(+b.dataset.del,1);save();render()}});
+  document.querySelectorAll("[data-g]").forEach(function(b){b.onclick=function(){var o=d.g.split(" + ")[+b.dataset.g],y=b.dataset.v==="1",dn=gdone(d).filter(function(x){return x!==o}),nt=gnot(d).filter(function(x){return x!==o}),was=(y?gdone(d):gnot(d)).indexOf(o)>=0;if(!was)(y?dn:nt).push(o);d.gd=dn;d.gn=nt;save();render()}});
+  $("ng").onchange=function(){var ch=(nd.g?nd.g.split(" + "):[]).filter(function(x){return CH.indexOf(x)>=0}),cu=this.value.trim();nd.g=ch.concat(cu?[cu]:[]).join(" + ");nd.gd=false;save();render()};
+  document.querySelectorAll("#qg button").forEach(function(b){b.onclick=function(){var o=b.textContent,p=nd.g?nd.g.split(" + "):[],i=p.indexOf(o);if(i>=0)p.splice(i,1);else p.push(o);nd.g=p.join(" + ");nd.gd=false;save();render()}});
+  document.querySelectorAll(".pos").forEach(function(b){b.onchange=function(){var p=Array.isArray(d.pos)?d.pos.slice():["","",""];p[+b.dataset.pi]=this.value.trim();d.pos=p;d.l=true;save()}});
+  }
+ if(tab==="p"){document.querySelectorAll("[data-sm]").forEach(function(b){b.onclick=function(){var k=b.dataset.sm;if(b.dataset.re!=="1"&&SX[k]){SP=k;SL=null;render();return}runSum(k)}});
+  document.querySelectorAll("[data-sc]").forEach(function(b){b.onclick=function(){var c=b.dataset.sc;S.sc=S.sc||{};S.sc[c]=scOn(c)?0:1;SX={};SL=null;save();render()}});
+  document.querySelectorAll("[data-clr]").forEach(function(b){b.onclick=function(){SX={};SP=null;SL=null;render()}})}
+ if(tab==="i")document.querySelectorAll("[data-th]").forEach(function(b){b.onclick=function(){TH=b.dataset.th;try{localStorage.setItem("gezonde-koers-thema",TH)}catch(e){}applyTh();render()}});
+ if(tab==="i")$("ex").onclick=function(){var d=new Date(),o={app:"mijn-gezonde-koers",versie:1,geexporteerd:d.toISOString(),data:S},
+  u=URL.createObjectURL(new Blob([JSON.stringify(o,null,2)],{type:"application/json"})),a=document.createElement("a");
+  a.href=u;a.download="gezonde-koers-export-"+K(d)+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);
+  $("exm").textContent="✓ Bestand gedownload. Bewaar het op een veilige plek."};
+ if(tab==="i")$("im").onclick=function(){$("imf").click()};
+ if(tab==="i")$("imf").onchange=function(){var f=this.files[0];if(!f)return;var rd=new FileReader(),m=$("imm");
+  rd.onload=function(){try{var j=JSON.parse(rd.result),d=j&&j.data?j.data:j;
+   if(!d||typeof d!=="object"||!d.days||typeof d.days!=="object"||!d.goal)throw 0;
+   if(!confirm("Dit vervangt de gegevens in de app en in je account. Doorgaan?"))return;
+   delete d.sm;S=d;save();tab="v";render()}catch(e){m.textContent="Dit bestand is geen geldige export van deze app."}};
+  rd.readAsText(f)};
+ if(tab==="i")$("lo").onclick=function(){if(window.gkLogout)window.gkLogout()};
+ if(tab==="i")$("gs").onclick=function(){var f=function(i){var v=parseFloat($(i).value.replace(",","."));return v>0?v:null};
+  S.goal.start=f("g1");S.goal.target=f("g2");S.goal.max=Math.max(0,parseInt($("g3").value)||0);S.goal.mv=Math.max(0,parseInt($("g5").value)||150);S.start=$("g4").value||"2026-11-09";save();tab="v";render()}}
+document.querySelectorAll("nav button").forEach(function(b){b.onclick=function(){if(tab==="p"&&b.dataset.t!=="p"){SX={};SP=null;SL=null}tab=b.dataset.t;render()}});
+document.addEventListener("keydown",function(e){var t=e.target;if(e.key!=="Enter"||e.isComposing||!t||t.tagName!=="INPUT")return;e.preventDefault();if(t.id==="ai"){var b=document.getElementById("aa");if(b)b.click();return}t.blur()});
+
+function chk(){var n=K(new Date());if(n!==today){var was=sel===today;today=n;if(was)sel=n;if(!WT)render()}}
+document.addEventListener("visibilitychange",function(){if(!document.hidden)chk()});window.addEventListener("focus",chk);setInterval(chk,60000);
+var L=lsGet();if(L&&L.days)S=L;if(S.sm){delete S.sm;save()}if(!S.goal.start&&!Object.keys(S.days).length)tab="i";render();
+</script>
+<script src="config.js"></script>
+<script src="appwrite.js"></script>
+<script src="sync.js"></script>
+<script>if("serviceWorker"in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script>
+</body></html>
